@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak.keycloak.svc.cluster.local:8080/realms/heimer-app
+
+  cloud:
+    gateway:
+      routes:
+        - id: hr-employee-service
+          uri: http://employee-service.hr.svc.cluster.local:8082
+          predicates:
+            - Path=/api/hr/employees/**
+
+        - id: inventory-product-service
+          uri: http://product-service.inventory.svc.cluster.local:8084
+          predicates:
+            - Path=/api/inventory/products/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
