@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class Employee extends BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @NotBlank
@@ -34,7 +34,7 @@ public class Employee extends BaseEntity implements Serializable {
     private String lastName;
 
     @Email
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String email;
 
     @Column
